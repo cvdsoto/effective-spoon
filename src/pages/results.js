@@ -11,10 +11,11 @@ export default class Results extends Component {
   }
 
   componentDidMount(){
+    console.log(process.env.GATSBY_APP_ID);
     const URL = `https://api.edamam.com/search?q=${this.state.ingredients}&app_id=${process.env.GATSBY_APP_ID}&app_key=${process.env.GATSBY_APP_KEY}&from=0&to=10`;
     axios.get(URL).then(results => {
       this.setState({recipes: results.data.hits});
-    })
+    });
   }
 
   render(){
@@ -28,9 +29,16 @@ export default class Results extends Component {
 }
 
 const Recipe = (props) => {
+  if (props.recipes === null) {
+    return(<div>Loading...</div>);
+  }
   return(
     <div>
-    {console.log(props.recipes)}
+    {props.recipes.map((result) =>
+      <div>
+        <img src={result.recipe.image} alt={result.recipe.label} />
+        <p>{result.recipe.label}</p>
+      </div>)}
     </div>
   )
 }
