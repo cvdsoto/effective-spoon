@@ -5,7 +5,7 @@ export default class Results extends Component {
   constructor(props){
     super();
     this.state = {
-      ingredients: props.location.state.ingredients,
+      ingredients: 'chicken',
       recipes: null
     }
   }
